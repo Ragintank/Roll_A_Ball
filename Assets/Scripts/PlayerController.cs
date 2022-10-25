@@ -24,4 +24,11 @@ public class PlayerController : MonoBehaviour
 		movementX = movementVector.x;
 		movementY = movementVector.y;
 	}
+	private void OnTriggerEnter(Collider other)
+	{
+		if(other.gameObject.CompareTag("Collectable"))
+		{
+			other.gameObject.SetActive(false);
+		}
+	}
 }
