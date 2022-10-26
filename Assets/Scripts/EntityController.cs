@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class EntityController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject collectable;
+    private float spawnRangeX = 19;
+    private float spawnRangeZ = 19;
+    private float startDelay = 2;
+    private float spawnInterval = 1.5f;
+
     void Start()
     {
-        
+        InvokeRepeating("SpawnCollectable", startDelay, spawnInterval);
     }
-
-    // Update is called once per frame
-    void Update()
+    void SpawnCollectable()
     {
-        
+        Vector3 spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 0.5f, Random.Range(-spawnRangeZ, spawnRangeZ));
+        Instantiate(collectable, spawnPos, collectable.transform.rotation);
     }
 }

@@ -14,7 +14,10 @@ public class PlayerController : MonoBehaviour
 	private int count = 0;
 	public TextMeshProUGUI countText;
 	public GameObject winTextObject;
-    void Start()
+
+	GameObject[] gameObjects;
+
+	void Start()
     {
         rb = GetComponent<Rigidbody>();
 		SetCountText();
@@ -29,7 +32,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if(other.gameObject.CompareTag("Collectable"))
 		{
-			other.gameObject.SetActive(false);
+			Destroy(other.gameObject);
 			count++;
 			SetCountText();
 		}
@@ -43,9 +46,19 @@ public class PlayerController : MonoBehaviour
 	void SetCountText()
 	{
 		countText.text = "Gold: " + count.ToString();
-		if(count >= 4)
+		if(count >= 10)
 		{
 			winTextObject.SetActive(true);
+			DestroyAllObjects();
+		}
+	}
+	void DestroyAllObjects()
+	{
+		gameObjects = GameObject.FindGameObjectsWithTag("Collectable");
+		CancelInvoke();
+		for (var i = 0; i < gameObjects.Length; i++)
+		{
+			Destroy(gameObjects[i]);
 		}
 	}
 }
